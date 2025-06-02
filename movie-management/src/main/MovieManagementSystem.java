@@ -343,8 +343,8 @@ public class MovieManagementSystem {
         }
     }
     
-    public static void searchMovies() {
-        System.out.println("\n=== SEARCH MOVIES ===");
+    public static int searchMovieMenu() {
+    	System.out.println("\n=== SEARCH MOVIES ===");
         System.out.println("1. Search by name");
         System.out.println("2. Search by genre");
         System.out.println("3. Search by director");
@@ -352,39 +352,47 @@ public class MovieManagementSystem {
         
         int searchType = sc.nextInt();
         sc.nextLine();
-        
-        System.out.print("Enter search term: ");
+        return searchType;
+    }
+    
+    public static String searchMovieTerm() {
+    	System.out.print("Enter search term: ");
         String searchTerm = sc.nextLine().toLowerCase();
         
+        return searchTerm;
+    }
+    
+    private static ArrayList<Movie> searchByName(String term) {
         ArrayList<Movie> results = new ArrayList<>();
-        
-        switch (searchType) {
-            case 1:
-                for (Movie m : movies) {
-                    if (m.getName().toLowerCase().contains(searchTerm)) {
-                        results.add(m);
-                    }
-                }
-                break;
-            case 2:
-                for (Movie m : movies) {
-                    if (m.getGenre().toLowerCase().contains(searchTerm)) {
-                        results.add(m);
-                    }
-                }
-                break;
-            case 3:
-                for (Movie m : movies) {
-                    if (m.getDirector().toLowerCase().contains(searchTerm)) {
-                        results.add(m);
-                    }
-                }
-                break;
-            default:
-                System.out.println("Invalid search type!");
-                return;
+        for (Movie m : movies) {
+            if (m.getName().toLowerCase().contains(term)) {
+                results.add(m);
+            }
         }
-        
+        return results;
+    }
+
+    private static ArrayList<Movie> searchByGenre(String term) {
+    	ArrayList<Movie> results = new ArrayList<>();
+        for (Movie m : movies) {
+            if (m.getGenre().toLowerCase().contains(term)) {
+                results.add(m);
+            }
+        }
+        return results;
+    }
+
+    private static ArrayList<Movie> searchByDirector(String term) {
+    	ArrayList<Movie> results = new ArrayList<>();
+        for (Movie m : movies) {
+            if (m.getDirector().toLowerCase().contains(term)) {
+                results.add(m);
+            }
+        }
+        return results;
+    }
+    
+    private static void displaySearchResults(ArrayList<Movie> results) {
         if (results.isEmpty()) {
             System.out.println("No movies found!");
         } else {
@@ -394,6 +402,29 @@ public class MovieManagementSystem {
             }
         }
     }
+    
+    public static void searchMovies() {
+        int searchType = searchMovieMenu();
+        String searchTerm = searchMovieTerm().toLowerCase();
+        ArrayList<Movie> results;
+        switch (searchType) {
+            case 1:
+                results = searchByName(searchTerm);
+                break;
+            case 2:
+                results = searchByGenre(searchTerm);
+                break;
+            case 3:
+                results = searchByDirector(searchTerm);
+                break;
+            default:
+                System.out.println("Invalid search type!");
+                return;
+        }
+
+        displaySearchResults(results);
+    }
+
     
     public static void viewProfile() {
         System.out.println("\n=== USER PROFILE ===");
