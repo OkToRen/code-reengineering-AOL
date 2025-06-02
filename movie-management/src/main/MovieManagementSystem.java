@@ -36,7 +36,7 @@ public class MovieManagementSystem {
         m1.description = "Two imprisoned men bond over a number of years";
         m1.releaseDate = "1994-09-23";
         m1.genre = "Drama";
-        m1.duration = 142;
+        m1.durationInMinutes = 142;
         m1.rating = 9.3;
         m1.director = "Frank Darabont";
         m1.budget = 25000000;
@@ -50,7 +50,7 @@ public class MovieManagementSystem {
         m2.description = "The aging patriarch of an organized crime dynasty";
         m2.releaseDate = "1972-03-24";
         m2.genre = "Crime";
-        m2.duration = 175;
+        m2.durationInMinutes = 175;
         m2.rating = 9.2;
         m2.director = "Francis Ford Coppola";
         m2.budget = 6000000;
@@ -75,7 +75,7 @@ public class MovieManagementSystem {
         System.out.print("Choose option: ");
         
         int choice = sc.nextInt();
-        sc.nextLine(); // consume newline
+        sc.nextLine();
         
         switch (choice) {
             case 1:
@@ -213,7 +213,7 @@ public class MovieManagementSystem {
             System.out.println("Description: " + m.description);
             System.out.println("Release Date: " + m.releaseDate);
             System.out.println("Genre: " + m.genre);
-            System.out.println("Duration: " + m.duration + " minutes");
+            System.out.println("Duration: " + m.durationInMinutes + " minutes");
             System.out.println("Rating: " + m.rating + "/10");
             System.out.println("Director: " + m.director);
             System.out.println("Budget: $" + m.budget);
@@ -242,7 +242,7 @@ public class MovieManagementSystem {
         newMovie.genre = sc.nextLine();
         
         System.out.print("Enter duration (minutes): ");
-        newMovie.duration = sc.nextInt();
+        newMovie.durationInMinutes = sc.nextInt();
         
         System.out.print("Enter rating (0-10): ");
         newMovie.rating = sc.nextDouble();

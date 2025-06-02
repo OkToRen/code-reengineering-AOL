@@ -6,7 +6,7 @@ public class Movie {
     public String description;
     public String releaseDate;
     public String genre;
-    public int duration; // in minutes
+    public int durationInMinutes;
     public double rating;
     public String director;
     public long budget;
