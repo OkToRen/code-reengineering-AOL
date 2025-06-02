@@ -19,43 +19,43 @@ public class MovieManagementSystem {
         System.out.println("=== MOVIE MANAGEMENT SYSTEM ===");
         
         User admin = new User();
-        admin.id = userIdCounter++;
-        admin.name = "admin";
-        admin.password = "admin123";
-        admin.email = "admin@movie.com";
-        admin.age = 30;
-        admin.phoneNumber = "1234567890";
-        admin.isActive = true;
-        admin.role = "ADMIN";
-        admin.registrationDate = new Date(System.currentTimeMillis());
+        admin.setId(userIdCounter++);
+        admin.setName("admin");
+        admin.setPassword("admin123");
+        admin.setEmail("admin@movie.com");
+        admin.setAge(30);
+        admin.setPhoneNumber("1234567890");
+        admin.setActive(true);
+        admin.setRole("ADMIN");
+        admin.setRegistrationDate(new Date(System.currentTimeMillis()));
         users.add(admin);
         
         Movie m1 = new Movie();
-        m1.id = movieIdCounter++;
-        m1.name = "The Shawshank Redemption";
-        m1.description = "Two imprisoned men bond over a number of years";
-        m1.releaseDate = "1994-09-23";
-        m1.genre = "Drama";
-        m1.durationInMinutes = 142;
-        m1.rating = 9.3;
-        m1.director = "Frank Darabont";
-        m1.budget = 25000000;
-        m1.boxOffice = 16000000;
-        m1.isAvailable = true;
+        m1.setId(movieIdCounter++);
+        m1.setName("The Shawshank Redemption");
+        m1.setDescription("Two imprisoned men bond over a number of years");
+        m1.setReleaseDate("1994-09-23");
+        m1.setGenre("Drama");
+        m1.setDurationInMinutes(142);
+        m1.setRating(9.3);
+        m1.setDirector("Frank Darabont");
+        m1.setBudget(25000000);
+        m1.setBoxOffice(16000000);
+        m1.setAvailable(true);
         movies.add(m1);
         
         Movie m2 = new Movie();
-        m2.id = movieIdCounter++;
-        m2.name = "The Godfather";
-        m2.description = "The aging patriarch of an organized crime dynasty";
-        m2.releaseDate = "1972-03-24";
-        m2.genre = "Crime";
-        m2.durationInMinutes = 175;
-        m2.rating = 9.2;
-        m2.director = "Francis Ford Coppola";
-        m2.budget = 6000000;
-        m2.boxOffice = 245000000;
-        m2.isAvailable = true;
+        m2.setId(movieIdCounter++);
+        m2.setName("The Godfather");
+        m2.setDescription("The aging patriarch of an organized crime dynasty");
+        m2.setReleaseDate("1972-03-24");
+        m2.setGenre("Crime");
+        m2.setDurationInMinutes(175);
+        m2.setRating(9.2);
+        m2.setDirector("Francis Ford Coppola");
+        m2.setBudget(6000000);
+        m2.setBoxOffice(245000000);
+        m2.setAvailable(true);
         movies.add(m2);
         
         while (true) {
@@ -97,30 +97,30 @@ public class MovieManagementSystem {
         System.out.println("\n=== USER REGISTRATION ===");
         User newUser = new User();
         
-        newUser.id = userIdCounter++;
+        newUser.setId(userIdCounter++);
         
         System.out.print("Enter name: ");
-        newUser.name = sc.nextLine();
+        newUser.setName(sc.nextLine());
         
         System.out.print("Enter password: ");
-        newUser.password = sc.nextLine();
+        newUser.setPassword(sc.nextLine());
         
         System.out.print("Enter email: ");
-        newUser.email = sc.nextLine();
+        newUser.setEmail(sc.nextLine());
         
         System.out.print("Enter age: ");
-        newUser.age = sc.nextInt();
+        newUser.setAge(sc.nextInt());
         sc.nextLine();
         
         System.out.print("Enter phone number: ");
-        newUser.phoneNumber = sc.nextLine();
+        newUser.setPhoneNumber(sc.nextLine());
         
-        newUser.role = "USER";
-        newUser.isActive = true;
-        newUser.registrationDate = new Date(System.currentTimeMillis());
+        newUser.setRole("USER");
+        newUser.setActive(true);
+        newUser.setRegistrationDate(new Date(System.currentTimeMillis()));
         
         users.add(newUser);
-        System.out.println("Registration successful! User ID: " + newUser.id);
+        System.out.println("Registration successful! User ID: " + newUser.getId());
     }
     
     public static void loginUser() {
@@ -131,10 +131,10 @@ public class MovieManagementSystem {
         String password = sc.nextLine();
         
         for (User u : users) {
-            if (u.name.equals(name) && u.password.equals(password)) {
-                if (u.isActive) {
+            if (u.getName().equals(name) && u.getPassword().equals(password)) {
+                if (u.isActive()) {
                     currentUser = u;
-                    System.out.println("Login successful! Welcome, " + u.name);
+                    System.out.println("Login successful! Welcome, " + u.getName());
                     return;
                 } else {
                     System.out.println("Account is inactive!");
@@ -147,7 +147,7 @@ public class MovieManagementSystem {
     
     public static void showMainMenu() {
         System.out.println("\n=== MAIN MENU ===");
-        System.out.println("Logged in as: " + currentUser.name + " (" + currentUser.role + ")");
+        System.out.println("Logged in as: " + currentUser.getName() + " (" + currentUser.getRole() + ")");
         System.out.println("1. View All Movies");
         System.out.println("2. Add Movie");
         System.out.println("3. Update Movie");
@@ -185,7 +185,7 @@ public class MovieManagementSystem {
                 updateProfile();
                 break;
             case 8:
-                if (currentUser.role.equals("ADMIN")) {
+                if (currentUser.getRole().equals("ADMIN")) {
                     viewAllUsers();
                 } else {
                     System.out.println("Access denied!");
@@ -208,17 +208,17 @@ public class MovieManagementSystem {
         }
         
         for (Movie m : movies) {
-            System.out.println("ID: " + m.id);
-            System.out.println("Name: " + m.name);
-            System.out.println("Description: " + m.description);
-            System.out.println("Release Date: " + m.releaseDate);
-            System.out.println("Genre: " + m.genre);
-            System.out.println("Duration: " + m.durationInMinutes + " minutes");
-            System.out.println("Rating: " + m.rating + "/10");
-            System.out.println("Director: " + m.director);
-            System.out.println("Budget: $" + m.budget);
-            System.out.println("Box Office: $" + m.boxOffice);
-            System.out.println("Available: " + (m.isAvailable ? "Yes" : "No"));
+            System.out.println("ID: " + m.getId());
+            System.out.println("Name: " + m.getName());
+            System.out.println("Description: " + m.getDescription());
+            System.out.println("Release Date: " + m.getReleaseDate());
+            System.out.println("Genre: " + m.getGenre());
+            System.out.println("Duration: " + m.getDurationInMinutes() + " minutes");
+            System.out.println("Rating: " + m.getRating() + "/10");
+            System.out.println("Director: " + m.getDirector());
+            System.out.println("Budget: $" + m.getBudget());
+            System.out.println("Box Office: $" + m.getBoxOffice());
+            System.out.println("Available: " + (m.isAvailable() ? "Yes" : "No"));
             System.out.println("-------------------------");
         }
     }
@@ -227,41 +227,41 @@ public class MovieManagementSystem {
         System.out.println("\n=== ADD MOVIE ===");
         Movie newMovie = new Movie();
         
-        newMovie.id = movieIdCounter++;
+        newMovie.setId(movieIdCounter++);
         
         System.out.print("Enter movie name: ");
-        newMovie.name = sc.nextLine();
+        newMovie.setName(sc.nextLine());
         
         System.out.print("Enter description: ");
-        newMovie.description = sc.nextLine();
+        newMovie.setDescription(sc.nextLine());
         
         System.out.print("Enter release date (YYYY-MM-DD): ");
-        newMovie.releaseDate = sc.nextLine();
+        newMovie.setReleaseDate(sc.nextLine());
         
         System.out.print("Enter genre: ");
-        newMovie.genre = sc.nextLine();
+        newMovie.setGenre(sc.nextLine());
         
         System.out.print("Enter duration (minutes): ");
-        newMovie.durationInMinutes = sc.nextInt();
+        newMovie.setDurationInMinutes(sc.nextInt());
         
         System.out.print("Enter rating (0-10): ");
-        newMovie.rating = sc.nextDouble();
+        newMovie.setRating(sc.nextDouble());
         sc.nextLine();
         
         System.out.print("Enter director: ");
-        newMovie.director = sc.nextLine();
+        newMovie.setDirector(sc.nextLine());
         
         System.out.print("Enter budget: ");
-        newMovie.budget = sc.nextLong();
+        newMovie.setBudget(sc.nextLong());
         
         System.out.print("Enter box office earnings: ");
-        newMovie.boxOffice = sc.nextLong();
+        newMovie.setBoxOffice(sc.nextLong());
         sc.nextLine();
         
-        newMovie.isAvailable = true;
+        newMovie.setAvailable(true);
         
         movies.add(newMovie);
-        System.out.println("Movie added successfully! ID: " + newMovie.id);
+        System.out.println("Movie added successfully! ID: " + newMovie.getId());
     }
     
     public static void updateMovie() {
@@ -272,7 +272,7 @@ public class MovieManagementSystem {
         
         Movie movieToUpdate = null;
         for (Movie m : movies) {
-            if (m.id == id) {
+            if (m.getId() == id) {
                 movieToUpdate = m;
                 break;
             }
@@ -284,31 +284,31 @@ public class MovieManagementSystem {
         }
         
         System.out.println("Current movie details:");
-        System.out.println("Name: " + movieToUpdate.name);
-        System.out.println("Description: " + movieToUpdate.description);
+        System.out.println("Name: " + movieToUpdate.getName());
+        System.out.println("Description: " + movieToUpdate.getDescription());
         
         System.out.print("Enter new name (or press Enter to keep current): ");
         String newName = sc.nextLine();
         if (!newName.trim().isEmpty()) {
-            movieToUpdate.name = newName;
+            movieToUpdate.setName(newName);
         }
         
         System.out.print("Enter new description (or press Enter to keep current): ");
         String newDesc = sc.nextLine();
         if (!newDesc.trim().isEmpty()) {
-            movieToUpdate.description = newDesc;
+            movieToUpdate.setDescription(newDesc);
         }
         
         System.out.print("Enter new release date (or press Enter to keep current): ");
         String newDate = sc.nextLine();
         if (!newDate.trim().isEmpty()) {
-            movieToUpdate.releaseDate = newDate;
+            movieToUpdate.setReleaseDate(newDate);
         }
         
         System.out.print("Enter new genre (or press Enter to keep current): ");
         String newGenre = sc.nextLine();
         if (!newGenre.trim().isEmpty()) {
-            movieToUpdate.genre = newGenre;
+            movieToUpdate.setGenre(newGenre);
         }
         
         System.out.println("Movie updated successfully!");
@@ -322,7 +322,7 @@ public class MovieManagementSystem {
         
         Movie movieToDelete = null;
         for (Movie m : movies) {
-            if (m.id == id) {
+            if (m.getId() == id) {
                 movieToDelete = m;
                 break;
             }
@@ -333,7 +333,7 @@ public class MovieManagementSystem {
             return;
         }
         
-        System.out.println("Are you sure you want to delete: " + movieToDelete.name + "? (y/n)");
+        System.out.println("Are you sure you want to delete: " + movieToDelete.getName() + "? (y/n)");
         String confirm = sc.nextLine();
         if (confirm.toLowerCase().equals("y") || confirm.toLowerCase().equals("yes")) {
             movies.remove(movieToDelete);
@@ -361,21 +361,21 @@ public class MovieManagementSystem {
         switch (searchType) {
             case 1:
                 for (Movie m : movies) {
-                    if (m.name.toLowerCase().contains(searchTerm)) {
+                    if (m.getName().toLowerCase().contains(searchTerm)) {
                         results.add(m);
                     }
                 }
                 break;
             case 2:
                 for (Movie m : movies) {
-                    if (m.genre.toLowerCase().contains(searchTerm)) {
+                    if (m.getGenre().toLowerCase().contains(searchTerm)) {
                         results.add(m);
                     }
                 }
                 break;
             case 3:
                 for (Movie m : movies) {
-                    if (m.director.toLowerCase().contains(searchTerm)) {
+                    if (m.getDirector().toLowerCase().contains(searchTerm)) {
                         results.add(m);
                     }
                 }
@@ -390,41 +390,41 @@ public class MovieManagementSystem {
         } else {
             System.out.println("Found " + results.size() + " movie(s):");
             for (Movie m : results) {
-                System.out.println("ID: " + m.id + ", Name: " + m.name + ", Genre: " + m.genre);
+                System.out.println("ID: " + m.getId() + ", Name: " + m.getName() + ", Genre: " + m.getGenre());
             }
         }
     }
     
     public static void viewProfile() {
         System.out.println("\n=== USER PROFILE ===");
-        System.out.println("ID: " + currentUser.id);
-        System.out.println("Name: " + currentUser.name);
-        System.out.println("Email: " + currentUser.email);
-        System.out.println("Age: " + currentUser.age);
-        System.out.println("Phone: " + currentUser.phoneNumber);
-        System.out.println("Role: " + currentUser.role);
-        System.out.println("Status: " + (currentUser.isActive ? "Active" : "Inactive"));
-        System.out.println("Registration Date: " + currentUser.registrationDate);
+        System.out.println("ID: " + currentUser.getId());
+        System.out.println("Name: " + currentUser.getName());
+        System.out.println("Email: " + currentUser.getEmail());
+        System.out.println("Age: " + currentUser.getAge());
+        System.out.println("Phone: " + currentUser.getPhoneNumber());
+        System.out.println("Role: " + currentUser.getRole());
+        System.out.println("Status: " + (currentUser.isActive() ? "Active" : "Inactive"));
+        System.out.println("Registration Date: " + currentUser.getRegistrationDate());
     }
     
     public static void updateProfile() {
         System.out.println("\n=== UPDATE PROFILE ===");
-        System.out.print("Enter new email (current: " + currentUser.email + "): ");
+        System.out.print("Enter new email (current: " + currentUser.getEmail() + "): ");
         String newEmail = sc.nextLine();
         if (!newEmail.trim().isEmpty()) {
-            currentUser.email = newEmail;
+            currentUser.setEmail(newEmail);
         }
         
-        System.out.print("Enter new age (current: " + currentUser.age + "): ");
+        System.out.print("Enter new age (current: " + currentUser.getAge() + "): ");
         String ageInput = sc.nextLine();
         if (!ageInput.trim().isEmpty()) {
-            currentUser.age = Integer.parseInt(ageInput);
+            currentUser.setAge(Integer.parseInt(ageInput));
         }
         
-        System.out.print("Enter new phone (current: " + currentUser.phoneNumber + "): ");
+        System.out.print("Enter new phone (current: " + currentUser.getPhoneNumber() + "): ");
         String newPhone = sc.nextLine();
         if (!newPhone.trim().isEmpty()) {
-            currentUser.phoneNumber = newPhone;
+            currentUser.setPhoneNumber(newPhone);
         }
         
         System.out.println("Profile updated successfully!");
@@ -433,7 +433,7 @@ public class MovieManagementSystem {
     public static void viewAllUsers() {
         System.out.println("\n=== ALL USERS ===");
         for (User u : users) {
-            System.out.println("ID: " + u.id + ", Name: " + u.name + ", Role: " + u.role + ", Active: " + u.isActive);
+            System.out.println("ID: " + u.getId() + ", Name: " + u.getName() + ", Role: " + u.getRole() + ", Active: " + u.isActive());
         }
     }
 }
