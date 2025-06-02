@@ -8,19 +8,16 @@ import model.Movie;
 import model.User;
 
 public class MovieManagementSystem {
-    public static ArrayList<User> users = new ArrayList<>(); // CODE SMELL: Public static data
+    public static ArrayList<User> users = new ArrayList<>();
     public static ArrayList<Movie> movies = new ArrayList<>();
     public static User currentUser = null;
     public static Scanner sc = new Scanner(System.in);
     public static int userIdCounter = 1;
     public static int movieIdCounter = 1;
     
-    // CODE SMELL: Long Method - main method is too long
-    // CODE SMELL: Feature Envy - accessing other class members directly
     public static void main(String[] args) {
         System.out.println("=== MOVIE MANAGEMENT SYSTEM ===");
         
-        // CODE SMELL: Duplicate Code - similar initialization
         User admin = new User();
         admin.id = userIdCounter++;
         admin.name = "admin";
@@ -33,7 +30,6 @@ public class MovieManagementSystem {
         admin.registrationDate = new Date(System.currentTimeMillis());
         users.add(admin);
         
-        // Adding sample movies with CODE SMELL: Magic Numbers
         Movie m1 = new Movie();
         m1.id = movieIdCounter++;
         m1.name = "The Shawshank Redemption";
@@ -71,7 +67,6 @@ public class MovieManagementSystem {
         }
     }
     
-    // CODE SMELL: Long Method with many responsibilities
     public static void showLoginMenu() {
         System.out.println("\n=== LOGIN MENU ===");
         System.out.println("1. Register");
@@ -82,7 +77,6 @@ public class MovieManagementSystem {
         int choice = sc.nextInt();
         sc.nextLine(); // consume newline
         
-        // CODE SMELL: Large switch statement
         switch (choice) {
             case 1:
                 registerUser();
@@ -99,7 +93,6 @@ public class MovieManagementSystem {
         }
     }
     
-    // CODE SMELL: Long Method, Feature Envy
     public static void registerUser() {
         System.out.println("\n=== USER REGISTRATION ===");
         User newUser = new User();
@@ -122,7 +115,6 @@ public class MovieManagementSystem {
         System.out.print("Enter phone number: ");
         newUser.phoneNumber = sc.nextLine();
         
-        // CODE SMELL: Magic String
         newUser.role = "USER";
         newUser.isActive = true;
         newUser.registrationDate = new Date(System.currentTimeMillis());
@@ -131,7 +123,6 @@ public class MovieManagementSystem {
         System.out.println("Registration successful! User ID: " + newUser.id);
     }
     
-    // CODE SMELL: Feature Envy - accessing User fields directly
     public static void loginUser() {
         System.out.println("\n=== USER LOGIN ===");
         System.out.print("Enter name: ");
@@ -139,7 +130,6 @@ public class MovieManagementSystem {
         System.out.print("Enter password: ");
         String password = sc.nextLine();
         
-        // CODE SMELL: Long loop with nested conditions
         for (User u : users) {
             if (u.name.equals(name) && u.password.equals(password)) {
                 if (u.isActive) {
@@ -155,7 +145,6 @@ public class MovieManagementSystem {
         System.out.println("Invalid credentials!");
     }
     
-    // CODE SMELL: Long Method, Large switch
     public static void showMainMenu() {
         System.out.println("\n=== MAIN MENU ===");
         System.out.println("Logged in as: " + currentUser.name + " (" + currentUser.role + ")");
@@ -211,7 +200,6 @@ public class MovieManagementSystem {
         }
     }
     
-    // CODE SMELL: Long Method with many print statements
     public static void viewAllMovies() {
         System.out.println("\n=== ALL MOVIES ===");
         if (movies.isEmpty()) {
@@ -219,7 +207,6 @@ public class MovieManagementSystem {
             return;
         }
         
-        // CODE SMELL: Feature Envy - accessing Movie fields directly
         for (Movie m : movies) {
             System.out.println("ID: " + m.id);
             System.out.println("Name: " + m.name);
@@ -236,7 +223,6 @@ public class MovieManagementSystem {
         }
     }
     
-    // CODE SMELL: Long Method, Feature Envy
     public static void addMovie() {
         System.out.println("\n=== ADD MOVIE ===");
         Movie newMovie = new Movie();
@@ -278,7 +264,6 @@ public class MovieManagementSystem {
         System.out.println("Movie added successfully! ID: " + newMovie.id);
     }
     
-    // CODE SMELL: Long Method, Duplicate Code
     public static void updateMovie() {
         System.out.println("\n=== UPDATE MOVIE ===");
         System.out.print("Enter movie ID to update: ");
@@ -286,7 +271,6 @@ public class MovieManagementSystem {
         sc.nextLine();
         
         Movie movieToUpdate = null;
-        // CODE SMELL: Duplicate loop logic
         for (Movie m : movies) {
             if (m.id == id) {
                 movieToUpdate = m;
@@ -330,7 +314,6 @@ public class MovieManagementSystem {
         System.out.println("Movie updated successfully!");
     }
     
-    // CODE SMELL: Duplicate Code (similar loop logic)
     public static void deleteMovie() {
         System.out.println("\n=== DELETE MOVIE ===");
         System.out.print("Enter movie ID to delete: ");
@@ -360,7 +343,6 @@ public class MovieManagementSystem {
         }
     }
     
-    // CODE SMELL: Long Method with complex logic
     public static void searchMovies() {
         System.out.println("\n=== SEARCH MOVIES ===");
         System.out.println("1. Search by name");
@@ -376,7 +358,6 @@ public class MovieManagementSystem {
         
         ArrayList<Movie> results = new ArrayList<>();
         
-        // CODE SMELL: Large switch with duplicate logic
         switch (searchType) {
             case 1:
                 for (Movie m : movies) {
@@ -414,7 +395,6 @@ public class MovieManagementSystem {
         }
     }
     
-    // CODE SMELL: Feature Envy
     public static void viewProfile() {
         System.out.println("\n=== USER PROFILE ===");
         System.out.println("ID: " + currentUser.id);
@@ -450,7 +430,6 @@ public class MovieManagementSystem {
         System.out.println("Profile updated successfully!");
     }
     
-    // CODE SMELL: Admin-only method in main class
     public static void viewAllUsers() {
         System.out.println("\n=== ALL USERS ===");
         for (User u : users) {
