@@ -34,7 +34,7 @@ public class MovieManagementSystem {
         m1.setId(movieIdCounter++);
         m1.setName("The Shawshank Redemption");
         m1.setDescription("Two imprisoned men bond over a number of years");
-        m1.setReleaseDate("1994-09-23");
+        m1.setReleaseDate(Date.valueOf("1994-09-23"));
         m1.setGenre("Drama");
         m1.setDurationInMinutes(142);
         m1.setRating(9.3);
@@ -48,7 +48,7 @@ public class MovieManagementSystem {
         m2.setId(movieIdCounter++);
         m2.setName("The Godfather");
         m2.setDescription("The aging patriarch of an organized crime dynasty");
-        m2.setReleaseDate("1972-03-24");
+        m2.setReleaseDate(Date.valueOf("1972-03-24"));
         m2.setGenre("Crime");
         m2.setDurationInMinutes(175);
         m2.setRating(9.2);
@@ -236,7 +236,7 @@ public class MovieManagementSystem {
         newMovie.setDescription(sc.nextLine());
         
         System.out.print("Enter release date (YYYY-MM-DD): ");
-        newMovie.setReleaseDate(sc.nextLine());
+        newMovie.setReleaseDate(Date.valueOf(sc.nextLine()));
         
         System.out.print("Enter genre: ");
         newMovie.setGenre(sc.nextLine());
@@ -302,7 +302,7 @@ public class MovieManagementSystem {
         System.out.print("Enter new release date (or press Enter to keep current): ");
         String newDate = sc.nextLine();
         if (!newDate.trim().isEmpty()) {
-            movieToUpdate.setReleaseDate(newDate);
+            movieToUpdate.setReleaseDate(Date.valueOf(newDate));
         }
         
         System.out.print("Enter new genre (or press Enter to keep current): ");

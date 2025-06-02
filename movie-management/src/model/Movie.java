@@ -1,10 +1,12 @@
 package model;
 
+import java.sql.Date;
+
 public class Movie {
 	private int id;
 	private String name;
 	private String description;
-	private String releaseDate;
+	private Date releaseDate;
 	private String genre;
 	private int durationInMinutes;
 	private double rating;
@@ -45,11 +47,11 @@ public class Movie {
 		this.description = description;
 	}
 
-	public String getReleaseDate() {
+	public Date getReleaseDate() {
 		return releaseDate;
 	}
 
-	public void setReleaseDate(String releaseDate) {
+	public void setReleaseDate(Date releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 
