@@ -2,7 +2,10 @@ package main;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Function;
 
 import model.Movie;
 import model.User;
@@ -15,8 +18,14 @@ public class MovieManagementSystem {
     public static Scanner sc = new Scanner(System.in);
     public static int userIdCounter = 1;
     public static int movieIdCounter = 1;
+    private static final Map<Integer, Function<String, ArrayList<Movie>>> searchStrategies = new HashMap<>();
+
     
     public static void main(String[] args) {
+        searchStrategies.put(1, MovieManagementSystem::searchByName);
+        searchStrategies.put(2, MovieManagementSystem::searchByGenre);
+        searchStrategies.put(3, MovieManagementSystem::searchByDirector);
+
         System.out.println("=== MOVIE MANAGEMENT SYSTEM ===");
         
         User admin = new User(++userIdCounter, "admin", "admin123", "admin@movie.com", 30, "1234567890", UserRole.ADMIN);
@@ -389,25 +398,20 @@ public class MovieManagementSystem {
             }
         }
     }
-    
+
+
     public static void searchMovies() {
         int searchType = searchMovieMenu();
         String searchTerm = searchMovieTerm().toLowerCase();
-        ArrayList<Movie> results;
-        switch (searchType) {
-            case 1:
-                results = searchByName(searchTerm);
-                break;
-            case 2:
-                results = searchByGenre(searchTerm);
-                break;
-            case 3:
-                results = searchByDirector(searchTerm);
-                break;
-            default:
-                System.out.println("Invalid search type!");
-                return;
+
+        Function<String, ArrayList<Movie>> strategy = searchStrategies.get(searchType);
+
+        if (strategy == null) {
+            System.out.println("Invalid search type!");
+            return;
         }
+
+        ArrayList<Movie> results = strategy.apply(searchTerm);
 
         displaySearchResults(results);
     }
