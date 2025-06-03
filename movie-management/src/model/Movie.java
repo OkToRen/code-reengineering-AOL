@@ -31,6 +31,21 @@ public class Movie {
         this.isAvailable = isAvailable;
     }
 
+
+
+	public boolean movieNameContains(String term){
+		return name.toLowerCase().contains(term);
+	}
+
+	public boolean movieGenreContains(String term){
+		return genre.toLowerCase().contains(term);
+	}
+
+
+	public boolean movieDirectorContains(String term){
+		return director.toLowerCase().contains(term);
+	}
+
     public void toggleAvailability() {
         isAvailable = !isAvailable;
     }

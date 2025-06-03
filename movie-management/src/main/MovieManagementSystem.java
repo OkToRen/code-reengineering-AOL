@@ -352,7 +352,7 @@ public class MovieManagementSystem {
     private static ArrayList<Movie> searchByName(String term) {
         ArrayList<Movie> results = new ArrayList<>();
         for (Movie m : movies) {
-            if (m.getName().toLowerCase().contains(term)) {
+            if (m.movieNameContains(term)) {
                 results.add(m);
             }
         }
@@ -362,7 +362,7 @@ public class MovieManagementSystem {
     private static ArrayList<Movie> searchByGenre(String term) {
     	ArrayList<Movie> results = new ArrayList<>();
         for (Movie m : movies) {
-            if (m.getGenre().toLowerCase().contains(term)) {
+            if (m.movieNameContains(term)) {
                 results.add(m);
             }
         }
@@ -372,7 +372,7 @@ public class MovieManagementSystem {
     private static ArrayList<Movie> searchByDirector(String term) {
     	ArrayList<Movie> results = new ArrayList<>();
         for (Movie m : movies) {
-            if (m.getDirector().toLowerCase().contains(term)) {
+            if (m.movieDirectorContains(term)) {
                 results.add(m);
             }
         }
