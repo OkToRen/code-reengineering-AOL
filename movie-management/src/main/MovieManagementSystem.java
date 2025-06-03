@@ -18,44 +18,37 @@ public class MovieManagementSystem {
     public static void main(String[] args) {
         System.out.println("=== MOVIE MANAGEMENT SYSTEM ===");
         
-        User admin = new User();
-        admin.setId(userIdCounter++);
-        admin.setName("admin");
-        admin.setPassword("admin123");
-        admin.setEmail("admin@movie.com");
-        admin.setAge(30);
-        admin.setPhoneNumber("1234567890");
-        admin.setActive(true);
-        admin.setRole("ADMIN");
-        admin.setRegistrationDate(new Date(System.currentTimeMillis()));
+        User admin = new User(++userIdCounter, "admin", "admin123", "admin@movie.com", 30, "1234567890", "ADMIN");
         users.add(admin);
         
-        Movie m1 = new Movie();
-        m1.setId(movieIdCounter++);
-        m1.setName("The Shawshank Redemption");
-        m1.setDescription("Two imprisoned men bond over a number of years");
-        m1.setReleaseDate(Date.valueOf("1994-09-23"));
-        m1.setGenre("Drama");
-        m1.setDurationInMinutes(142);
-        m1.setRating(9.3);
-        m1.setDirector("Frank Darabont");
-        m1.setBudget(25000000);
-        m1.setBoxOffice(16000000);
-        m1.setAvailable(true);
+        Movie m1 = new Movie(
+            ++movieIdCounter,
+            "The Shawshank Redemption",
+            "Two imprisoned men bond over a number of years",
+            Date.valueOf("1994-09-23"),
+            "Drama",
+            142,
+            9.3,
+            "Frank Darabont",
+            25000000,
+            16000000,
+            true
+        );
         movies.add(m1);
-        
-        Movie m2 = new Movie();
-        m2.setId(movieIdCounter++);
-        m2.setName("The Godfather");
-        m2.setDescription("The aging patriarch of an organized crime dynasty");
-        m2.setReleaseDate(Date.valueOf("1972-03-24"));
-        m2.setGenre("Crime");
-        m2.setDurationInMinutes(175);
-        m2.setRating(9.2);
-        m2.setDirector("Francis Ford Coppola");
-        m2.setBudget(6000000);
-        m2.setBoxOffice(245000000);
-        m2.setAvailable(true);
+
+        Movie m2 = new Movie(
+            ++movieIdCounter,
+            "The Godfather",
+            "The aging patriarch of an organized crime dynasty",
+            Date.valueOf("1972-03-24"),
+            "Crime",
+            175,
+            9.2,
+            "Francis Ford Coppola",
+            6000000,
+            245000000,
+            true
+        );
         movies.add(m2);
         
         while (true) {
@@ -95,29 +88,24 @@ public class MovieManagementSystem {
     
     public static void registerUser() {
         System.out.println("\n=== USER REGISTRATION ===");
-        User newUser = new User();
-        
-        newUser.setId(userIdCounter++);
         
         System.out.print("Enter name: ");
-        newUser.setName(sc.nextLine());
+        String name = sc.nextLine();
         
         System.out.print("Enter password: ");
-        newUser.setPassword(sc.nextLine());
+        String password = sc.nextLine();
         
         System.out.print("Enter email: ");
-        newUser.setEmail(sc.nextLine());
+        String email = sc.nextLine();
         
         System.out.print("Enter age: ");
-        newUser.setAge(sc.nextInt());
+        Integer age = sc.nextInt();
         sc.nextLine();
         
         System.out.print("Enter phone number: ");
-        newUser.setPhoneNumber(sc.nextLine());
-        
-        newUser.setRole("USER");
-        newUser.setActive(true);
-        newUser.setRegistrationDate(new Date(System.currentTimeMillis()));
+        String phoneNumber = sc.nextLine();
+
+        User newUser = new User(++userIdCounter, name, password, email, age, phoneNumber, "USER");
         
         users.add(newUser);
         System.out.println("Registration successful! User ID: " + newUser.getId());
@@ -225,41 +213,39 @@ public class MovieManagementSystem {
     
     public static void addMovie() {
         System.out.println("\n=== ADD MOVIE ===");
-        Movie newMovie = new Movie();
-        
-        newMovie.setId(movieIdCounter++);
-        
+
         System.out.print("Enter movie name: ");
-        newMovie.setName(sc.nextLine());
-        
+        String name = sc.nextLine();
+
         System.out.print("Enter description: ");
-        newMovie.setDescription(sc.nextLine());
-        
+        String description = sc.nextLine();
+
         System.out.print("Enter release date (YYYY-MM-DD): ");
-        newMovie.setReleaseDate(Date.valueOf(sc.nextLine()));
-        
+        Date releaseDate = Date.valueOf(sc.nextLine());
+
         System.out.print("Enter genre: ");
-        newMovie.setGenre(sc.nextLine());
-        
+        String genre = sc.nextLine();
+
         System.out.print("Enter duration (minutes): ");
-        newMovie.setDurationInMinutes(sc.nextInt());
-        
+        int durationInMinutes = sc.nextInt();
+
         System.out.print("Enter rating (0-10): ");
-        newMovie.setRating(sc.nextDouble());
+        double rating = sc.nextDouble();
         sc.nextLine();
-        
+
         System.out.print("Enter director: ");
-        newMovie.setDirector(sc.nextLine());
-        
+        String director = sc.nextLine();
+
         System.out.print("Enter budget: ");
-        newMovie.setBudget(sc.nextLong());
-        
+        long budget = sc.nextLong();
+
         System.out.print("Enter box office earnings: ");
-        newMovie.setBoxOffice(sc.nextLong());
+        long boxOffice = sc.nextLong();
         sc.nextLine();
-        
-        newMovie.setAvailable(true);
-        
+
+        Movie newMovie = new Movie(movieIdCounter++, name, description, releaseDate, genre,
+                                durationInMinutes, rating, director, budget, boxOffice, true);
+
         movies.add(newMovie);
         System.out.println("Movie added successfully! ID: " + newMovie.getId());
     }

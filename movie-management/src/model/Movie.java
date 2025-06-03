@@ -15,6 +15,22 @@ public class Movie {
     private long boxOffice;
     private boolean isAvailable;
     
+	public Movie(int id, String name, String description, Date releaseDate, String genre,
+                 int durationInMinutes, double rating, String director,
+                 long budget, long boxOffice, boolean isAvailable) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.genre = genre;
+        this.durationInMinutes = durationInMinutes;
+        this.rating = rating;
+        this.director = director;
+        this.budget = budget;
+        this.boxOffice = boxOffice;
+        this.isAvailable = isAvailable;
+    }
+
     public void toggleAvailability() {
         isAvailable = !isAvailable;
     }
