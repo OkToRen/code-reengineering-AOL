@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import model.Movie;
 import model.User;
+import model.UserRole;
 
 public class MovieManagementSystem {
     public static ArrayList<User> users = new ArrayList<>();
@@ -18,7 +19,7 @@ public class MovieManagementSystem {
     public static void main(String[] args) {
         System.out.println("=== MOVIE MANAGEMENT SYSTEM ===");
         
-        User admin = new User(++userIdCounter, "admin", "admin123", "admin@movie.com", 30, "1234567890", "ADMIN");
+        User admin = new User(++userIdCounter, "admin", "admin123", "admin@movie.com", 30, "1234567890", UserRole.ADMIN);
         users.add(admin);
         
         Movie m1 = new Movie(
@@ -105,7 +106,7 @@ public class MovieManagementSystem {
         System.out.print("Enter phone number: ");
         String phoneNumber = sc.nextLine();
 
-        User newUser = new User(++userIdCounter, name, password, email, age, phoneNumber, "USER");
+        User newUser = new User(++userIdCounter, name, password, email, age, phoneNumber, UserRole.USER);
         
         users.add(newUser);
         System.out.println("Registration successful! User ID: " + newUser.getId());

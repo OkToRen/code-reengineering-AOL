@@ -9,11 +9,11 @@ public class User {
     private String email;
     private int age;
     private String phoneNumber;
-    private String role;
+    private UserRole role;
     private boolean isActive;
     private Date registrationDate;
 
-	public User(int id, String name, String password, String email, int age, String phoneNumber, String role) {
+	public User(int id, String name, String password, String email, int age, String phoneNumber, UserRole role) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
@@ -77,11 +77,11 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getRole() {
+	public UserRole getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(UserRole role) {
 		this.role = role;
 	}
 
