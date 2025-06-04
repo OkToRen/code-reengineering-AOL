@@ -340,24 +340,22 @@ public class MovieManagementSystem {
     }
     
     public static int searchMovieMenu() {
-    	System.out.println("\n=== SEARCH MOVIES ===");
-        System.out.println("1. Search by name");
-        System.out.println("2. Search by genre");
-        System.out.println("3. Search by director");
-        System.out.print("Choose search type: ");
-        
+        ConsoleHelper.printHeader("Search Movies");
+        ConsoleHelper.print("1. Search by name");
+        ConsoleHelper.print("2. Search by genre");
+        ConsoleHelper.print("3. Search by director");
+        ConsoleHelper.printInline("Choose search type: ");
+
         int searchType = sc.nextInt();
         sc.nextLine();
         return searchType;
     }
-    
+
     public static String searchMovieTerm() {
-    	System.out.print("Enter search term: ");
-        String searchTerm = sc.nextLine().toLowerCase();
-        
-        return searchTerm;
+        ConsoleHelper.printInline("Enter search term: ");
+        return sc.nextLine().toLowerCase();
     }
-    
+
     private static ArrayList<Movie> searchByName(String term) {
         ArrayList<Movie> results = new ArrayList<>();
         for (Movie m : movies) {
@@ -369,9 +367,9 @@ public class MovieManagementSystem {
     }
 
     private static ArrayList<Movie> searchByGenre(String term) {
-    	ArrayList<Movie> results = new ArrayList<>();
+        ArrayList<Movie> results = new ArrayList<>();
         for (Movie m : movies) {
-            if (m.movieNameContains(term)) {
+            if (m.getGenre().toLowerCase().contains(term)) {
                 results.add(m);
             }
         }
@@ -379,7 +377,7 @@ public class MovieManagementSystem {
     }
 
     private static ArrayList<Movie> searchByDirector(String term) {
-    	ArrayList<Movie> results = new ArrayList<>();
+        ArrayList<Movie> results = new ArrayList<>();
         for (Movie m : movies) {
             if (m.movieDirectorContains(term)) {
                 results.add(m);
@@ -387,35 +385,32 @@ public class MovieManagementSystem {
         }
         return results;
     }
-    
+
     private static void displaySearchResults(ArrayList<Movie> results) {
         if (results.isEmpty()) {
-            System.out.println("No movies found!");
+            ConsoleHelper.printError("No movies found!");
         } else {
-            System.out.println("Found " + results.size() + " movie(s):");
+            ConsoleHelper.print("Found " + results.size() + " movie(s):");
             for (Movie m : results) {
-                System.out.println("ID: " + m.getId() + ", Name: " + m.getName() + ", Genre: " + m.getGenre());
+                ConsoleHelper.print("ID: " + m.getId() + ", Name: " + m.getName() + ", Genre: " + m.getGenre());
             }
         }
     }
 
-
     public static void searchMovies() {
         int searchType = searchMovieMenu();
-        String searchTerm = searchMovieTerm().toLowerCase();
+        String searchTerm = searchMovieTerm();
 
         Function<String, ArrayList<Movie>> strategy = searchStrategies.get(searchType);
 
         if (strategy == null) {
-            System.out.println("Invalid search type!");
+            ConsoleHelper.printError("Invalid search type!");
             return;
         }
 
         ArrayList<Movie> results = strategy.apply(searchTerm);
-
         displaySearchResults(results);
     }
-
     
     public static void viewProfile() {
         System.out.println("\n=== USER PROFILE ===");
