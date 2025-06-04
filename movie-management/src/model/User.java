@@ -2,6 +2,8 @@ package model;
 
 import java.sql.Date;
 
+import helper.ConsoleHelper;
+
 public class User {
     private int id;
     private String name;
@@ -26,7 +28,7 @@ public class User {
 	}
     
     public void displayUserInfo() {
-        System.out.println("User: " + name + " (" + role + ")");
+        ConsoleHelper.print("User: " + name + " (" + role + ")");
     }
 
 	public int getId() {

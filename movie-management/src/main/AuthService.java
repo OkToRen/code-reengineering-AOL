@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import helper.ConsoleHelper;
 import model.User;
 import model.UserRole;
 
@@ -15,11 +16,11 @@ public class AuthService {
     
 
     public void showLoginMenu() {
-    	System.out.println("\n=== LOGIN MENU ===");
-        System.out.println("1. Register");
-        System.out.println("2. Login");
-        System.out.println("3. Exit");
-        System.out.print("Choose option: ");
+    	ConsoleHelper.printHeader("LOGIN MENU");
+        ConsoleHelper.print("1. Register");
+        ConsoleHelper.print("2. Login");
+        ConsoleHelper.print("3. Exit");
+        ConsoleHelper.printInline("Choose option: ");
         
         int choice = sc.nextInt();
         sc.nextLine();
@@ -32,59 +33,59 @@ public class AuthService {
                 loginUser();
                 break;
             case 3:
-                System.out.println("Goodbye!");
+                ConsoleHelper.print("Goodbye!");
                 System.exit(0);
                 break;
             default:
-                System.out.println("Invalid choice!");
+                ConsoleHelper.printError("Invalid choice!");
         }
     }
 
     public void registerUser() {
-System.out.println("\n=== USER REGISTRATION ===");
+		ConsoleHelper.printHeader("USER REGISTRATION");
         
-        System.out.print("Enter name: ");
+		ConsoleHelper.printInline("Enter name: ");
         String name = sc.nextLine();
         
-        System.out.print("Enter password: ");
+        ConsoleHelper.printInline("Enter password: ");
         String password = sc.nextLine();
         
-        System.out.print("Enter email: ");
+        ConsoleHelper.printInline("Enter email: ");
         String email = sc.nextLine();
         
-        System.out.print("Enter age: ");
+        ConsoleHelper.printInline("Enter age: ");
         Integer age = sc.nextInt();
         sc.nextLine();
         
-        System.out.print("Enter phone number: ");
+        ConsoleHelper.printInline("Enter phone number: ");
         String phoneNumber = sc.nextLine();
 
         User newUser = new User(++userIdCounter, name, password, email, age, phoneNumber, UserRole.USER);
         
         users.add(newUser);
-        System.out.println("Registration successful! User ID: " + newUser.getId());
+        ConsoleHelper.print("Registration successful! User ID: " + newUser.getId());
     }
 
     public void loginUser() {
-    	System.out.println("\n=== USER LOGIN ===");
-        System.out.print("Enter name: ");
+    	ConsoleHelper.printHeader("USER LOGIN");
+    	ConsoleHelper.printInline("Enter name: ");
         String name = sc.nextLine();
-        System.out.print("Enter password: ");
+        ConsoleHelper.printInline("Enter password: ");
         String password = sc.nextLine();
         
         for (User u : users) {
             if (u.getName().equals(name) && u.getPassword().equals(password)) {
                 if (u.isActive()) {
                     currentUser = u;
-                    System.out.println("Login successful! Welcome, " + u.getName());
+                    ConsoleHelper.print("Login successful! Welcome, " + u.getName());
                     return;
                 } else {
-                    System.out.println("Account is inactive!");
+                    ConsoleHelper.printError("Account is inactive!");
                     return;
                 }
             }
         }
-        System.out.println("Invalid credentials!");
+        ConsoleHelper.printError("Invalid credentials!");
     }
 
     public void seedAdmin() {

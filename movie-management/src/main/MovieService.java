@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import helper.ConsoleHelper;
 import model.Movie;
 
 public class MovieService {
@@ -12,57 +13,57 @@ public class MovieService {
     private static int movieIdCounter = 1;
 
     public void viewAllMovies() {
-    	System.out.println("\n=== ALL MOVIES ===");
+    	ConsoleHelper.printHeader("ALL MOVIES");
         if (movies.isEmpty()) {
-            System.out.println("No movies available!");
+            ConsoleHelper.print("No movies available!");
             return;
         }
         
         for (Movie m : movies) {
-            System.out.println("ID: " + m.getId());
-            System.out.println("Name: " + m.getName());
-            System.out.println("Description: " + m.getDescription());
-            System.out.println("Release Date: " + m.getReleaseDate());
-            System.out.println("Genre: " + m.getGenre());
-            System.out.println("Duration: " + m.getDurationInMinutes() + " minutes");
-            System.out.println("Rating: " + m.getRating() + "/10");
-            System.out.println("Director: " + m.getDirector());
-            System.out.println("Budget: $" + m.getBudget());
-            System.out.println("Box Office: $" + m.getBoxOffice());
-            System.out.println("Available: " + (m.isAvailable() ? "Yes" : "No"));
-            System.out.println("-------------------------");
+            ConsoleHelper.print("ID: " + m.getId());
+            ConsoleHelper.print("Name: " + m.getName());
+            ConsoleHelper.print("Description: " + m.getDescription());
+            ConsoleHelper.print("Release Date: " + m.getReleaseDate());
+            ConsoleHelper.print("Genre: " + m.getGenre());
+            ConsoleHelper.print("Duration: " + m.getDurationInMinutes() + " minutes");
+            ConsoleHelper.print("Rating: " + m.getRating() + "/10");
+            ConsoleHelper.print("Director: " + m.getDirector());
+            ConsoleHelper.print("Budget: $" + m.getBudget());
+            ConsoleHelper.print("Box Office: $" + m.getBoxOffice());
+            ConsoleHelper.print("Available: " + (m.isAvailable() ? "Yes" : "No"));
+            ConsoleHelper.print("-------------------------");
         }
     }
 
     public void addMovie() {
-    	System.out.println("\n=== ADD MOVIE ===");
+    	ConsoleHelper.printHeader("ADD MOVIE");
 
-        System.out.print("Enter movie name: ");
+        ConsoleHelper.printInline("Enter movie name: ");
         String name = sc.nextLine();
 
-        System.out.print("Enter description: ");
+        ConsoleHelper.printInline("Enter description: ");
         String description = sc.nextLine();
 
-        System.out.print("Enter release date (YYYY-MM-DD): ");
+        ConsoleHelper.printInline("Enter release date (YYYY-MM-DD): ");
         Date releaseDate = Date.valueOf(sc.nextLine());
 
-        System.out.print("Enter genre: ");
+        ConsoleHelper.printInline("Enter genre: ");
         String genre = sc.nextLine();
 
-        System.out.print("Enter duration (minutes): ");
+        ConsoleHelper.printInline("Enter duration (minutes): ");
         int durationInMinutes = sc.nextInt();
 
-        System.out.print("Enter rating (0-10): ");
+        ConsoleHelper.printInline("Enter rating (0-10): ");
         double rating = sc.nextDouble();
         sc.nextLine();
 
-        System.out.print("Enter director: ");
+        ConsoleHelper.printInline("Enter director: ");
         String director = sc.nextLine();
 
-        System.out.print("Enter budget: ");
+        ConsoleHelper.printInline("Enter budget: ");
         long budget = sc.nextLong();
 
-        System.out.print("Enter box office earnings: ");
+        ConsoleHelper.printInline("Enter box office earnings: ");
         long boxOffice = sc.nextLong();
         sc.nextLine();
 
@@ -70,12 +71,12 @@ public class MovieService {
                                 durationInMinutes, rating, director, budget, boxOffice, true);
 
         movies.add(newMovie);
-        System.out.println("Movie added successfully! ID: " + newMovie.getId());
+        ConsoleHelper.print("Movie added successfully! ID: " + newMovie.getId());
     }
 
     public void updateMovie() {
-    	System.out.println("\n=== UPDATE MOVIE ===");
-        System.out.print("Enter movie ID to update: ");
+    	ConsoleHelper.printHeader("UPDATE MOVIE");
+        ConsoleHelper.printInline("Enter movie ID to update: ");
         int id = sc.nextInt();
         sc.nextLine();
         
@@ -88,13 +89,13 @@ public class MovieService {
         }
         
         if (movieToUpdate == null) {
-            System.out.println("Movie not found!");
+            ConsoleHelper.print("Movie not found!");
             return;
         }
         
-        System.out.println("Current movie details:");
-        System.out.println("Name: " + movieToUpdate.getName());
-        System.out.println("Description: " + movieToUpdate.getDescription());
+        ConsoleHelper.print("Current movie details:");
+        ConsoleHelper.print("Name: " + movieToUpdate.getName());
+        ConsoleHelper.print("Description: " + movieToUpdate.getDescription());
         
         System.out.print("Enter new name (or press Enter to keep current): ");
         String newName = sc.nextLine();
@@ -120,12 +121,12 @@ public class MovieService {
             movieToUpdate.setGenre(newGenre);
         }
         
-        System.out.println("Movie updated successfully!");
+        ConsoleHelper.print("Movie updated successfully!");
     }
 
     public void deleteMovie() {
-    	System.out.println("\n=== DELETE MOVIE ===");
-        System.out.print("Enter movie ID to delete: ");
+    	ConsoleHelper.printHeader("\n=== DELETE MOVIE ===");
+        ConsoleHelper.printInline("Enter movie ID to delete: ");
         int id = sc.nextInt();
         sc.nextLine();
         
@@ -138,17 +139,17 @@ public class MovieService {
         }
         
         if (movieToDelete == null) {
-            System.out.println("Movie not found!");
+            ConsoleHelper.printError("Movie not found!");
             return;
         }
         
-        System.out.println("Are you sure you want to delete: " + movieToDelete.getName() + "? (y/n)");
+        ConsoleHelper.print("Are you sure you want to delete: " + movieToDelete.getName() + "? (y/n)");
         String confirm = sc.nextLine();
         if (confirm.toLowerCase().equals("y") || confirm.toLowerCase().equals("yes")) {
             movies.remove(movieToDelete);
-            System.out.println("Movie deleted successfully!");
+            ConsoleHelper.print("Movie deleted successfully!");
         } else {
-            System.out.println("Deletion cancelled!");
+            ConsoleHelper.print("Deletion cancelled!");
         }
     }
 

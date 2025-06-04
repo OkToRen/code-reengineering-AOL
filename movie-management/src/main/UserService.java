@@ -2,6 +2,7 @@ package main;
 
 import java.util.Scanner;
 
+import helper.ConsoleHelper;
 import model.User;
 import model.UserRole;
 
@@ -10,50 +11,50 @@ public class UserService {
 
     public void viewProfile() {
         User currentUser = AuthService.currentUser;
-        System.out.println("\n=== USER PROFILE ===");
-        System.out.println("ID: " + currentUser.getId());
-        System.out.println("Name: " + currentUser.getName());
-        System.out.println("Email: " + currentUser.getEmail());
-        System.out.println("Age: " + currentUser.getAge());
-        System.out.println("Phone: " + currentUser.getPhoneNumber());
-        System.out.println("Role: " + currentUser.getRole());
-        System.out.println("Status: " + (currentUser.isActive() ? "Active" : "Inactive"));
-        System.out.println("Registration Date: " + currentUser.getRegistrationDate());
+        ConsoleHelper.printHeader("USER PROFILE");
+        ConsoleHelper.print("ID: " + currentUser.getId());
+        ConsoleHelper.print("Name: " + currentUser.getName());
+        ConsoleHelper.print("Email: " + currentUser.getEmail());
+        ConsoleHelper.print("Age: " + currentUser.getAge());
+        ConsoleHelper.print("Phone: " + currentUser.getPhoneNumber());
+        ConsoleHelper.print("Role: " + currentUser.getRole());
+        ConsoleHelper.print("Status: " + (currentUser.isActive() ? "Active" : "Inactive"));
+        ConsoleHelper.print("Registration Date: " + currentUser.getRegistrationDate());
     }
 
     public void updateProfile() {
     	User currentUser = AuthService.currentUser;
-    	System.out.println("\n=== UPDATE PROFILE ===");
-        System.out.print("Enter new email (current: " + currentUser.getEmail() + "): ");
+    	ConsoleHelper.printHeader("\n=== UPDATE PROFILE ===");
+        ConsoleHelper.printInline("Enter new email (current: " + currentUser.getEmail() + "): ");
         String newEmail = sc.nextLine();
         if (!newEmail.trim().isEmpty()) {
             currentUser.setEmail(newEmail);
         }
         
-        System.out.print("Enter new age (current: " + currentUser.getAge() + "): ");
+        ConsoleHelper.printInline("Enter new age (current: " + currentUser.getAge() + "): ");
         String ageInput = sc.nextLine();
         if (!ageInput.trim().isEmpty()) {
             currentUser.setAge(Integer.parseInt(ageInput));
         }
         
-        System.out.print("Enter new phone (current: " + currentUser.getPhoneNumber() + "): ");
+        ConsoleHelper.printInline("Enter new phone (current: " + currentUser.getPhoneNumber() + "): ");
         String newPhone = sc.nextLine();
         if (!newPhone.trim().isEmpty()) {
             currentUser.setPhoneNumber(newPhone);
         }
         
-        System.out.println("Profile updated successfully!");
+        ConsoleHelper.print("Profile updated successfully!");
     }
 
     public void viewAllUsers() {
         if (!AuthService.currentUser.getRole().equals(UserRole.ADMIN)) {
-            System.out.println("Access denied!");
+            ConsoleHelper.printError("Access denied!");
             return;
         }
 
-        System.out.println("\n=== ALL USERS ===");
+        ConsoleHelper.printHeader("ALL USERS");
         for (User u : AuthService.users) {
-            System.out.println("ID: " + u.getId() + ", Name: " + u.getName() + ", Role: " + u.getRole() + ", Active: " + u.isActive());
+            ConsoleHelper.print("ID: " + u.getId() + ", Name: " + u.getName() + ", Role: " + u.getRole() + ", Active: " + u.isActive());
         }
     }
 }
