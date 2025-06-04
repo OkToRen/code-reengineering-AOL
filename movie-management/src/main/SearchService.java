@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import helper.ConsoleHelper;
 import model.Movie;
 
 public class SearchService {
@@ -20,23 +21,23 @@ public class SearchService {
     }
 
     public static void searchMovies() {
-        System.out.println("1. Search by name\n2. Genre\n3. Director");
+        ConsoleHelper.print("1. Search by name\n2. Genre\n3. Director");
         int type = sc.nextInt(); sc.nextLine();
-        System.out.print("Enter term: ");
+        ConsoleHelper.printInline("Enter term: ");
         String term = sc.nextLine().toLowerCase();
 
         var strategy = searchStrategies.get(type);
         if (strategy == null) {
-            System.out.println("Invalid type");
+            ConsoleHelper.printError("Invalid type");
             return;
         }
 
         var results = strategy.apply(term);
         if (results.isEmpty()) {
-            System.out.println("No results.");
+            ConsoleHelper.print("No results.");
         } else {
             for (Movie m : results) {
-                System.out.println("ID: " + m.getId() + ", Name: " + m.getName());
+                ConsoleHelper.print("ID: " + m.getId() + ", Name: " + m.getName());
             }
         }
     }
