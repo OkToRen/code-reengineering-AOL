@@ -73,6 +73,16 @@ public class MovieService {
         movies.add(newMovie);
         ConsoleHelper.print("Movie added successfully! ID: " + newMovie.getId());
     }
+    
+    public Movie findMovieById(int id) {
+        for (Movie m : movies) {
+            if (m.getId() == id) {
+                return m;
+            }
+        }
+        return null;
+    }
+
 
     public void updateMovie() {
     	ConsoleHelper.printHeader("UPDATE MOVIE");
@@ -80,13 +90,7 @@ public class MovieService {
         int id = sc.nextInt();
         sc.nextLine();
         
-        Movie movieToUpdate = null;
-        for (Movie m : movies) {
-            if (m.getId() == id) {
-                movieToUpdate = m;
-                break;
-            }
-        }
+        Movie movieToUpdate = findMovieById(id);
         
         if (movieToUpdate == null) {
             ConsoleHelper.print("Movie not found!");
@@ -130,13 +134,7 @@ public class MovieService {
         int id = sc.nextInt();
         sc.nextLine();
         
-        Movie movieToDelete = null;
-        for (Movie m : movies) {
-            if (m.getId() == id) {
-                movieToDelete = m;
-                break;
-            }
-        }
+        Movie movieToDelete = findMovieById(id);
         
         if (movieToDelete == null) {
             ConsoleHelper.printError("Movie not found!");
